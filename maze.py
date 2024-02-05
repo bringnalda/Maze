@@ -100,3 +100,8 @@ class Maze:
                 self._cells[i][j-1].has_bottom_wall = False
 
             self._break_walls_r(next_index[0], next_index[1])
+
+    def _reset_cells_visited(self):
+        for col in self._cells:
+            for cell in col:
+                cell.visited = False
