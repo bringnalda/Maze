@@ -61,21 +61,21 @@ class Cell:
             self._win.draw_line(line, fill_color)
         
         #moving right
-        if self._x1 < to_cell._x1:
+        elif self._x1 < to_cell._x1:
             line = Line(Point(x_mid, y_mid), Point(self._x2, y_mid))
             self._win.draw_line(line, fill_color)
             line = Line(Point(to_x_mid, to_y_mid), Point(to_cell._x1, to_y_mid))
             self._win.draw_line(line, fill_color)
 
         #moving up
-        if self._y1 < to_cell._y1:
+        elif self._y1 > to_cell._y1:
             line = Line(Point(x_mid, y_mid), Point(x_mid, self._y1))
             self._win.draw_line(line, fill_color)
             line = Line(Point(to_x_mid, to_y_mid), Point(to_x_mid, to_cell._y2))
             self._win.draw_line(line, fill_color)
         
         #moving down
-        if self._y1 > to_cell._y1:
+        elif self._y1 < to_cell._y1:
             line = Line(Point(x_mid, y_mid), Point(x_mid, self._y2))
             self._win.draw_line(line, fill_color)
             line = Line(Point(to_x_mid, to_y_mid), Point(to_x_mid, to_cell._y1))

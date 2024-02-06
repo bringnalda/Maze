@@ -47,13 +47,13 @@ class Maze:
         x2 = x1 + self._cell_size_x
         y2 = y1 + self._cell_size_y
         self._cells[i][j].draw(x1, y1, x2, y2)
-        self._animate()
+        self._animate(0)
 
-    def _animate(self): 
+    def _animate(self, animation_time = .03): 
         if self._win is None:
             return
         self._win.redraw()
-        #time.sleep(0.03)
+        time.sleep(animation_time)
 
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -111,7 +111,7 @@ class Maze:
         return self._solve_r(0, 0)
 
     def _solve_r(self, x, y):
-        self._animate()
+        self._animate(.09)
         current_cell = self._cells[x][y]
         current_cell.visited = True
 
@@ -120,8 +120,8 @@ class Maze:
         
         #check left
         if x > 0 and not current_cell.has_left_wall and not self._cells[x - 1][y].visited:
-            result = self._solve_r(x - 1, y)
             self._cells[x][y].draw_move(self._cells[x - 1][y])
+            result = self._solve_r(x - 1, y)
             if result:
                 return True
             else:
@@ -129,8 +129,8 @@ class Maze:
 
         #check right
         if x < self._num_cols - 1 and not current_cell.has_right_wall and not self._cells[x + 1][y].visited:
-            result = self._solve_r(x + 1, y)
             self._cells[x][y].draw_move(self._cells[x + 1][y])
+            result = self._solve_r(x + 1, y)
             if result:
                 return True
             else:
@@ -138,8 +138,8 @@ class Maze:
 
         #check top
         if y > 0 and not current_cell.has_top_wall and not self._cells[x][y - 1].visited:
-            result = self._solve_r(x, y - 1)
             self._cells[x][y].draw_move(self._cells[x][y - 1])
+            result = self._solve_r(x, y - 1)
             if result:
                 return True
             else:
@@ -147,8 +147,8 @@ class Maze:
 
         #check bottom
         if y < self._num_rows - 1 and not current_cell.has_bottom_wall and not self._cells[x][y + 1].visited:
-            result = self._solve_r(x, y + 1)
             self._cells[x][y].draw_move(self._cells[x][y + 1])
+            result = self._solve_r(x, y + 1)
             if result:
                 return True
             else:
