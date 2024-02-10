@@ -1,4 +1,5 @@
 from cell import Cell
+from graphics import *
 import random
 import time
 
@@ -47,7 +48,7 @@ class Maze:
         x2 = x1 + self._cell_size_x
         y2 = y1 + self._cell_size_y
         self._cells[i][j].draw(x1, y1, x2, y2)
-        self._animate(0)
+        self._animate(.0)
 
     def _animate(self, animation_time = .03): 
         if self._win is None:
@@ -108,6 +109,10 @@ class Maze:
                 cell.visited = False
 
     def solve(self):
+        start_cell = self._cells[0][0]
+        start_mid = (start_cell._x1 + start_cell._x2) / 2
+        line = Line(Point(start_mid, self._y1), Point(start_mid, (start_cell._y1 + start_cell._y2) / 2))
+        self._win.draw_line(line, "red")
         return self._solve_r(0, 0)
 
     def _solve_r(self, x, y):
@@ -116,6 +121,9 @@ class Maze:
         current_cell.visited = True
 
         if x == self._num_cols - 1 and y == self._num_rows - 1:
+            cell_mid = (self._cells[x][y]._x1 + self._cells[x][y]._x2) / 2
+            line = Line(Point(cell_mid, self._cells[x][y]._y2), Point(cell_mid, (self._cells[x][y]._y1 + self._cells[x][y]._y2) / 2))
+            self._win.draw_line(line, "red")
             return True
         
         #check left
